@@ -35,3 +35,29 @@ export const useGetQuizzes = () => {
     isLoading: !data && !error,
   };
 };
+
+export const useGetSingleQuiz = (id: string) => {
+  const { data, error } = useSWR<{ quizzes_by_pk: Quiz }>(
+    [
+      `
+      query Quiz($id: uuid!) {
+        quizzes_by_pk(id: $id) {
+          name
+          questions {
+            text
+            options
+          }
+        }
+      }
+    `,
+      id,
+    ],
+    (query, id) => fetcher(query, { id })
+  );
+
+  return {
+    quiz: data?.quizzes_by_pk,
+    error,
+    isLoading: !error && !data,
+  };
+};

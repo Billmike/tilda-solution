@@ -11,7 +11,7 @@ const Home: NextPage = () => {
       <div className="grid mt-8 md:grid-cols-2 gap-4">
       {
           quizzes?.map(quiz => (
-            <Link key={quiz.id} href={`/quiz/${quiz.id}`} passHref>
+            <Link key={quiz.id} href={`/quiz/question?id=${quiz.id}`} passHref>
               <div key={quiz.id} className="border-2 p-5 cursor-pointer rounded-md shadow-sm mx-4 md:mx-0">
             <h4 className="font-bold">{quiz.name}</h4>
             <div className="flex justify-between mt-3">

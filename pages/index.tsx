@@ -1,9 +1,30 @@
 import type { NextPage } from 'next'
 import Link from 'next/link'
+import React from 'react';
 import { useGetQuizzes } from '../fetcher/hooks';
+
+const fetchScoresFromStorage = () => {
+  if (typeof window !== 'undefined') {
+    const quizzes = localStorage.getItem('quiz')
+
+    if (!quizzes) {
+      return {
+        parseQuizzes: {}
+      }
+    } else {
+      const parseQuizzes = JSON.parse(quizzes)
+      return { parseQuizzes }
+    }
+  }
+
+  return {
+    parseQuizzes: {}
+  }
+}
 
 const Home: NextPage = () => {
   const { quizzes } = useGetQuizzes()
+  const [{ parseQuizzes }] = React.useState(fetchScoresFromStorage)
 
   return (
     <div className="container mt-8 mx-auto">
@@ -16,10 +37,10 @@ const Home: NextPage = () => {
             <h4 className="font-bold">{quiz.name}</h4>
             <div className="flex justify-between mt-3">
               <div>
-                <p>Score: 8/10</p>
+                    <p>{parseQuizzes[quiz.name] || 'Not started'}</p>
               </div>
               <button className="border-2 px-5 text-sm py-1 rounded-md cursor-pointer">
-                Redo
+                    {parseQuizzes[quiz.name] ? 'Redo' : 'Start'}
                   </button>
                 </div>
               </div>

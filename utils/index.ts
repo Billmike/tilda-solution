@@ -2,7 +2,7 @@ import { Quiz } from '../fetcher/hooks';
 
 export const saveScoreToStorage = (correctAnswerCount: number, quiz: Quiz) => {
   const quizObject = {
-    [quiz?.name as string]: `${correctAnswerCount}/${quiz?.questions.length}`,
+    [quiz?.name as string]: `Score: ${correctAnswerCount}/${quiz?.questions.length}`,
   };
 
   const itemInStorage = localStorage.getItem('quiz');

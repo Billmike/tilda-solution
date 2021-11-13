@@ -15,11 +15,11 @@ const Questions = () => {
   const { quiz, error, isLoading } = useGetSingleQuiz(quizId)
 
   if (error) {
-    return
+    return 'Error occurred'
   }
 
   if (isLoading) {
-    return
+    return 'Loading.....'
   }
 
   const handleGoBack = () => {

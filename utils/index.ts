@@ -18,3 +18,22 @@ export const saveScoreToStorage = (correctAnswerCount: number, quiz: Quiz) => {
     localStorage.setItem('quiz', JSON.stringify(quizObject));
   }
 };
+
+export const fetchScoresFromStorage = () => {
+  if (typeof window !== 'undefined') {
+    const scores = localStorage.getItem('quiz');
+
+    if (!scores) {
+      return {
+        parseScores: {},
+      };
+    } else {
+      const parseScores = JSON.parse(scores);
+      return { parseScores };
+    }
+  }
+
+  return {
+    parseScores: {},
+  };
+};

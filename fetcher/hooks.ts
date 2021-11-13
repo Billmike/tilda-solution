@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 import fetcher from '.';
 
-type Quiz = {
+export type Quiz = {
   name: string;
   questions: {
     options: string;
@@ -46,6 +46,7 @@ export const useGetSingleQuiz = (id: string) => {
           questions {
             text
             options
+            answer
           }
         }
       }

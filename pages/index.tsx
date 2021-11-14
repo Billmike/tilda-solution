@@ -3,11 +3,20 @@ import Link from 'next/link'
 import React from 'react';
 import { useGetQuizzes } from '../fetcher/hooks';
 import { fetchScoresFromStorage } from '../utils';
+import { ErrorComponent, Loader } from '../components';
 
 
 const Home: NextPage = () => {
-  const { quizzes } = useGetQuizzes()
+  const { quizzes, error, isLoading } = useGetQuizzes()
   const [{ parseScores }] = React.useState(fetchScoresFromStorage)
+
+  if (error) {
+    return <ErrorComponent errorMessage="An error occured fetching the quizzes" />
+  }
+
+  if (isLoading) {
+    return <Loader />
+  }
 
   return (
     <div className="container mt-8 mx-auto">

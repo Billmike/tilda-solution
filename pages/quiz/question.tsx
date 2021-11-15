@@ -2,6 +2,7 @@ import * as React from 'react'
 import { useRouter } from 'next/router'
 import { Quiz, useGetSingleQuiz } from '../../fetcher/hooks';
 import { saveScoreToStorage } from '../../utils';
+import { Loader, ErrorComponent } from '../../components';
 
 const Questions = () => {
   const router = useRouter()
@@ -15,11 +16,11 @@ const Questions = () => {
   const { quiz, error, isLoading } = useGetSingleQuiz(quizId)
 
   if (error) {
-    return
+    return <ErrorComponent errorMessage="An error occurred fetching the questions." />
   }
 
   if (isLoading) {
-    return
+    return <Loader />
   }
 
   const handleGoBack = () => {
